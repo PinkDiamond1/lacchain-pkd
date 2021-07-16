@@ -1,0 +1,29 @@
+{
+	"name": "lacchain-pkd",
+	"version": "1.0.0",
+	"description": "LACChain On-Chain Public Key Directory",
+	"author": "Sergio Ceron Figueroa <sergioce@iadb.org>",
+	"keywords": [
+		"lacchain",
+		"pkd",
+		"dnd",
+		"trusted-list",
+		"trust-framework",
+		"smart-contracts",
+		"root-of-trust"
+	],
+	"scripts": {
+		"test": "truffle test"
+	},
+	"dependencies": {
+		"ethereumjs-util": "^5.1.5",
+		"pify": "^5.0.0"
+	},
+	"devDependencies": {
+		"@openzeppelin/contracts": "^4.2.0",
+		"ganache-cli": "^6.5.0",
+		"truffle": "^5.1.67",
+		"@truffle/hdwallet-provider": "^1.4.0"
+	},
+	"license": "Apache-2.0"
+}
