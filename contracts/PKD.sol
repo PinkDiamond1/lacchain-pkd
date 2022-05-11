@@ -9,33 +9,35 @@ contract PKD is Ownable {
 
     struct PublicKey {
         string did;
+        string hash;
         uint expires;
         uint8 status;
     }
 
-    event PublicKeyAdded( address indexed entity, string did, uint expires );
-    event PublicKeyUpdated( address indexed entity, string did, uint expires );
+    event PublicKeyAdded( address indexed entity, string did, string hash, uint expires );
+    event PublicKeyUpdated( address indexed entity, string did, string hash, uint expires );
     event PublicKeyRevoked( address indexed entity);
 
-    function register( address _entity, string memory _did, uint _expires ) onlyOwner external {
+    function register( address _entity, string memory _did, string _hash, uint _expires ) onlyOwner external {
         PublicKey storage pk = publicKeys[_entity];
         require( pk.status == 0, "The public key is already registered" );
         pk.did = _did;
+        pk.hash = _hash;
         pk.expires = _expires;
         pk.status = 1;
 
-        emit PublicKeyAdded( _entity, _did, _expires );
+        emit PublicKeyAdded( _entity, _did, _hash, _expires );
     }
 
-    function update( address _entity, string memory _did, uint _expires ) onlyOwner external {
+    function update( address _entity, string memory _did, string hash, uint _expires ) onlyOwner external {
         PublicKey storage pk = publicKeys[_entity];
         require( pk.status == 1, "The public key is not registered or has been revoked" );
-        require( pk.expires > block.timestamp, "The public key has expired" );
         pk.did = _did;
+        pk.hash = _hash;
         pk.expires = _expires;
         pk.status = 1;
 
-        emit PublicKeyUpdated( _entity, _did, _expires );
+        emit PublicKeyUpdated( _entity, _did, _hash, _expires );
     }
 
     function revoke( address _entity ) onlyOwner external {
